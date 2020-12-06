@@ -14,5 +14,3 @@ First launch Backgammon.py file
 		UP KEY: play the upper dice
 		DOWN KEY: play the lower dice
 		
-	repeat 2,3 until no dices anymore.
-
