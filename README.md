@@ -1,16 +1,24 @@
 # Backgammon_python
-This is for project 2.1 at Maastricht University where we're asked to create a Backgammon UI and AI <br>
+This is for project 2.1 at Maastricht University where we're asked to create a Backgammon UI and AI. <br><br>
+Prerequisite to launch Backgammon.py: pygame library.
 
-First launch Backgammon.py file
+Use the following command from your IDE to install pygame: <br>
+		
+	python3 -m pip install -U pygame --user
+	
+or use the anaconda package manager. <br> 
+For more information about the pygame library: https://www.pygame.org/wiki/GettingStarted <br>
+		
+Launch **Backgammon.py** file to start the game. <br><br>
+It will first automatically run the dices for you to determine wich color starts. <br>
+You can then roll the dices by clicking on the 'DICE ROLL' button. <br>
+It will roll 2 dices for you and display them on the right hand side of the board.<br><br>
+Select a highlighted pawn and click on it with your MOUSE.<br><br>
 
-	1: 
+Select a highlighted destination by using:
+
+	- UP KEY : to select the upper dice play
 	
-		Launch dices
-	2: 
-	
-		Select one of the possible arrows (highlighted) with your mouse
-	3:
-	
-		UP KEY: play the upper dice
-		DOWN KEY: play the lower dice
+	- DOWN KEY: to select the lower dice play
+
 		
