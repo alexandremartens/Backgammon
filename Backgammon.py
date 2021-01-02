@@ -1,61 +1,27 @@
 import pygame as pg
 import random
 
-import Pieces
+import Pieces, load_images
+from txt import operations
+from VisualManagement import *
+from variables import *
 
 pg.init()
 pg.display.set_caption('Backgammon Project 2')
-
-# LOAD ALL FILES:
-inactive_player_dice_button = pg.image.load("img/inactive_player_dice_button.png")
-active_player_dice_button = pg.image.load("img/active_player_dice_button.png")
-
-inactive_adversary_dice_button = pg.image.load("img/inactive_adversary_dice_button.png")
-active_adversary_dice_button = pg.image.load("img/active_adversary_dice_button.png")
-
-white_wins = pg.image.load("img/white_wins.png")
-black_wins = pg.image.load("img/black_wins.png")
-
-dest_light_bottom = pg.image.load("img/dest_light_bottom.png")
-dest_light_upper = pg.image.load("img/dest_light_upper.png")
-
-house_lights_green = pg.image.load("img/house_lights_green.png")
-
-white_pawn_outside = pg.image.load("img/white_pawn_outside.png")
-black_pawn_outside = pg.image.load("img/black_pawn_outside.png")
-
-blank_player_dice = "img/blank_player_dice.png"
-blank_adversary_dice = "img/blank_adversary_dice.png"
-
-white_pawn = pg.image.load("img/white_pawn.png")
-black_pawn = pg.image.load("img/black_pawn.png")
-
-background_image = pg.image.load("img/two_players_back.png")
-
-white_highlight = pg.image.load("img/white_highlight.png")
-black_highlight = pg.image.load("img/black_highlight.png")
-
 screen_size = (900, 790)  # a tuple of size (width, height)
 screen = pg.display.set_mode(screen_size)
 
-# CREATE THE DICE LISTS
-player_dice_list = [
-    "img/player_dice1.png",
-    "img/player_dice2.png",
-    "img/player_dice3.png",
-    "img/player_dice4.png",
-    "img/player_dice5.png",
-    "img/player_dice6.png"
-]
+# import board images:
+white_pawn_outside, black_pawn_outside, white_pawn, black_pawn, background_image = load_images.board(pg)
 
-adversary_dice_list = [
-    "img/adversary_dice1.png",
-    "img/adversary_dice2.png",
-    "img/adversary_dice3.png",
-    "img/adversary_dice4.png",
-    "img/adversary_dice5.png",
-    "img/adversary_dice6.png"
-]
+# import animation images:
+inactive_adversary_dice_button, active_adversary_dice_button, inactive_player_dice_button, \
+active_player_dice_button, white_wins, black_wins, dest_light_bottom, dest_light_upper, \
+house_lights_green, blank_player_dice, blank_adversary_dice, white_highlight, black_highlight \
+    = load_images.animations(pg)
+
+# create the dice lists
+player_dice_list, adversary_dice_list = load_images.dices()
 
 # LIST CONTAINS EACH TIME: [destination_stack, piece_name]
 white_light_pawns = []
@@ -78,7 +44,7 @@ def player_dice_values():
     player_dice_1.my_dice = pg.image.load(player_dice_list[v1 - 1])
     player_dice_2.my_dice = pg.image.load(player_dice_list[v2 - 1])
 
-    write_file("{} {}".format(v1, v2), "txt/DC.txt")
+    operations.write_file("{} {}".format(v1, v2), "txt/player_dice_values.txt")
 
 
 def adversary_dice_values():
@@ -88,21 +54,7 @@ def adversary_dice_values():
     adversary_dice_1.my_dice = pg.image.load(adversary_dice_list[v1 - 1])
     adversary_dice_2.my_dice = pg.image.load(adversary_dice_list[v2 - 1])
 
-    write_file("{} {}".format(v1, v2), "txt/ADC.txt")
-
-
-def write_file(txt, file_name):
-    file = open(file_name, "w")
-    file.write(txt)
-    file.close()
-
-
-def read_file(file_name="txt/DC.txt"):
-    file = open(file_name, "r")
-    content = file.read().split()
-    file.close()
-
-    return int(content[0]), int(content[-1])
+    operations.write_file("{} {}".format(v1, v2), "txt/adversary_dice_values.txt")
 
 
 # KEY HIGHLIGHTING
@@ -127,7 +79,7 @@ class player_dice:
         self.my_dice = pg.image.load(pic)
 
 
-# - - - TODO optimise
+# - - - create the middle stack
 my_middle_stack = Pieces.ColumnStacks(0, None)
 temp_middle = []
 temp_x = 426
@@ -149,81 +101,12 @@ player_dice_2 = player_dice(blank_player_dice)
 adversary_dice_1 = adversary_dice(blank_adversary_dice)
 adversary_dice_2 = adversary_dice(blank_adversary_dice)
 
-# CREATE ALL PIECES (IMAGES)
-black_pawn_1 = Pieces.MyPawns("black")
-black_pawn_2 = Pieces.MyPawns("black")
-black_pawn_3 = Pieces.MyPawns("black")
-black_pawn_4 = Pieces.MyPawns("black")
-black_pawn_5 = Pieces.MyPawns("black")
-black_pawn_6 = Pieces.MyPawns("black")
-black_pawn_7 = Pieces.MyPawns("black")
-black_pawn_8 = Pieces.MyPawns("black")
-black_pawn_9 = Pieces.MyPawns("black")
-black_pawn_10 = Pieces.MyPawns("black")
-black_pawn_11 = Pieces.MyPawns("black")
-black_pawn_12 = Pieces.MyPawns("black")
-black_pawn_13 = Pieces.MyPawns("black")
-black_pawn_14 = Pieces.MyPawns("black")
-black_pawn_15 = Pieces.MyPawns("black")
 
-white_pawn_1 = Pieces.MyPawns("white")
-white_pawn_2 = Pieces.MyPawns("white")
-white_pawn_3 = Pieces.MyPawns("white")
-white_pawn_4 = Pieces.MyPawns("white")
-white_pawn_5 = Pieces.MyPawns("white")
-white_pawn_6 = Pieces.MyPawns("white")
-white_pawn_7 = Pieces.MyPawns("white")
-white_pawn_8 = Pieces.MyPawns("white")
-white_pawn_9 = Pieces.MyPawns("white")
-white_pawn_10 = Pieces.MyPawns("white")
-white_pawn_11 = Pieces.MyPawns("white")
-white_pawn_12 = Pieces.MyPawns("white")
-white_pawn_13 = Pieces.MyPawns("white")
-white_pawn_14 = Pieces.MyPawns("white")
-white_pawn_15 = Pieces.MyPawns("white")
-
-# ADD THE PIECES TO counter STACK (COLUMN)
-stack_1 = Pieces.ColumnStacks(1, black_pawn_14, black_pawn_15)
-stack_2 = Pieces.ColumnStacks(2, None)
-stack_3 = Pieces.ColumnStacks(3, None)
-stack_4 = Pieces.ColumnStacks(4, None)
-stack_5 = Pieces.ColumnStacks(5, None)
-stack_6 = Pieces.ColumnStacks(6, white_pawn_1, white_pawn_2, white_pawn_3, white_pawn_4, white_pawn_5)
-stack_7 = Pieces.ColumnStacks(7, None)
-stack_8 = Pieces.ColumnStacks(8, white_pawn_6, white_pawn_7, white_pawn_8)
-stack_9 = Pieces.ColumnStacks(9, None)
-stack_10 = Pieces.ColumnStacks(10, None)
-stack_11 = Pieces.ColumnStacks(11, None)
-stack_12 = Pieces.ColumnStacks(12, black_pawn_9, black_pawn_10, black_pawn_11, black_pawn_12, black_pawn_13)
-stack_13 = Pieces.ColumnStacks(13, white_pawn_13, white_pawn_12, white_pawn_11, white_pawn_10, white_pawn_9)
-stack_14 = Pieces.ColumnStacks(14, None)
-stack_15 = Pieces.ColumnStacks(15, None)
-stack_16 = Pieces.ColumnStacks(16, None)
-stack_17 = Pieces.ColumnStacks(17, black_pawn_8, black_pawn_7, black_pawn_6)
-stack_18 = Pieces.ColumnStacks(18, None)
-stack_19 = Pieces.ColumnStacks(19, black_pawn_5, black_pawn_4, black_pawn_3, black_pawn_2, black_pawn_1)
-stack_20 = Pieces.ColumnStacks(20, None)
-stack_21 = Pieces.ColumnStacks(21, None)
-stack_22 = Pieces.ColumnStacks(22, None)
-stack_23 = Pieces.ColumnStacks(23, None)
-stack_24 = Pieces.ColumnStacks(24, white_pawn_15, white_pawn_14)
-
-# REGROUP ALL STACKS INTO counter LIST
-all_stack_list = [
-    stack_1, stack_2, stack_3, stack_4, stack_5, stack_6, stack_7, stack_8, stack_9, stack_10, stack_11, stack_12,
-    stack_13, stack_14, stack_15, stack_16, stack_17, stack_18, stack_19, stack_20, stack_21, stack_22, stack_23,
-    stack_24
-]
-
-# REGROUP ALL STACKS INTO counter DICTIONARY
-all_stack_dict = {
-    1: stack_1, 2: stack_2, 3: stack_3, 4: stack_4, 5: stack_5, 6: stack_6, 7: stack_7, 8: stack_8, 9: stack_9,
-    10: stack_10, 11: stack_11, 12: stack_12, 13: stack_13, 14: stack_14, 15: stack_15, 16: stack_16, 17: stack_17,
-    18: stack_18, 19: stack_19, 20: stack_20, 21: stack_21, 22: stack_22, 23: stack_23, 24: stack_24
-}
+VM = VisualManagement()
+all_stack_dict = VM.init_stacks()  # generate the pieces and put them in a stack
 
 
-# MOVE PIECE FROM counter STACK TO ANOTHER
+# move piece from current stack to another
 def move(current_stack, destination_stack):  # TODO RECHECK param type
 
     # pop from the current stack
@@ -239,42 +122,27 @@ def move(current_stack, destination_stack):  # TODO RECHECK param type
         if i[1] == deleted_piece:
             del i
 
-    destination_stack.add_pawn(deleted_piece)  # ad the piece to the destination stack
+    destination_stack.add_pawn(deleted_piece)  # add the piece to the destination stack
     emplacements.append([destination_stack, deleted_piece])  # add the piece as a new destination possible
     # then push in desired stack
 
 
-player_dice1_moved = False
-player_dice2_moved = False
-adversary_dice1_moved = False
-adversary_dice2_moved = False
-
-white_light_triggered = False
-black_light_triggered = False
-adversary_dice_rolled = False
-
-turn = None
-turn_rolling = False
-player_dice_rolled = False
-winner_declared = False
-running = True
-
 # set pieces that are in home to Home
 
-for i in all_stack_list:
-    if i.loc <= 6:
-        for j in i.pawns:
+for k in all_stack_dict:
+    val = all_stack_dict[k]
+
+    if val.loc <= 6:
+        for j in val.pawns:
             if j.id == "white":
                 white_home.append(j)
 
-    elif i.loc >= 19:
-        for j in i.pawns:
+    elif val.loc >= 19:
+        for j in val.pawns:
             if j.id == "black":
                 black_home.append(j)
 
 counter = 0
-turn_adv = None
-turn_pla = None
 
 # MAIN LOOP
 while running:
@@ -311,15 +179,15 @@ while running:
 
     # convert all white pawns (might be lighted or not) to normal white pawns
     if turn == "player":
-        for i in all_stack_list:
-            for j in i.pawns:
+        for k in all_stack_dict:
+            for j in all_stack_dict[k].pawns:
                 if j.id == "white":
                     j.image = white_pawn
 
     # convert all black pawns (might be lighted or not) to normal black pawns image
     if turn == "adversary":
-        for i in all_stack_list:
-            for j in i.pawns:
+        for k in all_stack_dict:
+            for j in all_stack_dict[k].pawns:
                 if j.id == "black":
                     j.image = black_pawn
 
@@ -397,7 +265,7 @@ while running:
         # turn of the player
         if turn == "player":
             for i in white_light_pawns:
-                dice_player = read_file()
+                dice_player = operations.read_file()
 
                 if event.type == pg.KEYDOWN and (event.key == pg.K_UP or event.key == pg.K_DOWN) and player_dice_rolled:
                     if len(my_middle_stack.pawns) > 0 and my_middle_stack.pawns[-1].id == "white":
@@ -453,7 +321,7 @@ while running:
         # turn of the adversary
         if turn == "adversary":
             for i in black_light_pawns:
-                dice_adversary = read_file("txt/ADC.txt")
+                dice_adversary = operations.read_file("txt/adversary_dice_values.txt")
                 if event.type == pg.KEYDOWN and (event.key == pg.K_UP or event.key == pg.K_DOWN) and \
                         adversary_dice_rolled:
                     if len(my_middle_stack.pawns) > 0 and my_middle_stack.pawns[-1].id == "black":
@@ -509,37 +377,8 @@ while running:
                                     adversary_dice2_moved = True
 
     # update the screen
-    screen.blit(black_pawn_1.image, black_pawn_1.coordinates)
-    screen.blit(black_pawn_2.image, black_pawn_2.coordinates)
-    screen.blit(black_pawn_3.image, black_pawn_3.coordinates)
-    screen.blit(black_pawn_4.image, black_pawn_4.coordinates)
-    screen.blit(black_pawn_5.image, black_pawn_5.coordinates)
-    screen.blit(black_pawn_6.image, black_pawn_6.coordinates)
-    screen.blit(black_pawn_7.image, black_pawn_7.coordinates)
-    screen.blit(black_pawn_8.image, black_pawn_8.coordinates)
-    screen.blit(black_pawn_9.image, black_pawn_9.coordinates)
-    screen.blit(black_pawn_10.image, black_pawn_10.coordinates)
-    screen.blit(black_pawn_11.image, black_pawn_11.coordinates)
-    screen.blit(black_pawn_12.image, black_pawn_12.coordinates)
-    screen.blit(black_pawn_13.image, black_pawn_13.coordinates)
-    screen.blit(black_pawn_14.image, black_pawn_14.coordinates)
-    screen.blit(black_pawn_15.image, black_pawn_15.coordinates)
+    VM.screen_update(screen)
 
-    screen.blit(white_pawn_1.image, white_pawn_1.coordinates)
-    screen.blit(white_pawn_2.image, white_pawn_2.coordinates)
-    screen.blit(white_pawn_3.image, white_pawn_3.coordinates)
-    screen.blit(white_pawn_4.image, white_pawn_4.coordinates)
-    screen.blit(white_pawn_5.image, white_pawn_5.coordinates)
-    screen.blit(white_pawn_6.image, white_pawn_6.coordinates)
-    screen.blit(white_pawn_7.image, white_pawn_7.coordinates)
-    screen.blit(white_pawn_8.image, white_pawn_8.coordinates)
-    screen.blit(white_pawn_9.image, white_pawn_9.coordinates)
-    screen.blit(white_pawn_10.image, white_pawn_10.coordinates)
-    screen.blit(white_pawn_11.image, white_pawn_11.coordinates)
-    screen.blit(white_pawn_12.image, white_pawn_12.coordinates)
-    screen.blit(white_pawn_13.image, white_pawn_13.coordinates)
-    screen.blit(white_pawn_14.image, white_pawn_14.coordinates)
-    screen.blit(white_pawn_15.image, white_pawn_15.coordinates)
 
     # turn of the player
     if turn == "player":
@@ -561,18 +400,20 @@ while running:
                 if i.id == "white":
                     light_pawns.append([my_middle_stack, i])
         else:
-            for i in all_stack_list:
-                if len(i.pawns) > 0:
-                    light_piece = i.pawns[-1]
+            for k in all_stack_dict:
+                val = all_stack_dict[k]
+
+                if len(val.pawns) > 0:
+                    light_piece = val.pawns[-1]
                     if light_piece.id == "white":
-                        light_pawns.append([i, light_piece])
+                        light_pawns.append([val, light_piece])
 
         white_light_pawns = light_pawns
 
         # 3: show the possible destinations when clicked on a pawn that's eligible to move
         if player_dice_rolled and len(white_light_pawns) > 0:
             temp_destination = []
-            dice_player = read_file()
+            dice_player = operations.read_file()
 
             if len(white_home) <= 15:
                 for i in white_light_pawns:
@@ -645,18 +486,20 @@ while running:
                     light_pawns.append([my_middle_stack, i])
 
         else:
-            for i in all_stack_list:
-                if len(i.pawns) > 0:
-                    light_piece = i.pawns[-1]
+            for k in all_stack_dict:
+                val = all_stack_dict[k]
+
+                if len(val.pawns) > 0:
+                    light_piece = val.pawns[-1]
                     if light_piece.id == "black":
-                        light_pawns.append([i, light_piece])
+                        light_pawns.append([val, light_piece])
 
         black_light_pawns = light_pawns
 
         # 3: show the possible destinations when clicked on a pawn that's eligible to move
         if adversary_dice_rolled and len(black_light_pawns) > 0:
             temp_destination = []
-            dice_adversary = read_file("txt/ADC.txt")
+            dice_adversary = operations.read_file("txt/adversary_dice_values.txt")
 
             if len(black_home) <= 15:
                 for i in black_light_pawns:

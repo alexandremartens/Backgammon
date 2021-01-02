@@ -1,0 +1,1 @@
+player_dice1_moved, player_dice2_moved, adversary_dice1_moved, adversary_dice2_moved,  white_light_triggered, black_light_triggered, adversary_dice_rolled,  turn, turn_rolling, player_dice_rolled, winner_declared, running,  turn_adv, turn_pla,
