@@ -18,7 +18,7 @@ def animations(pg):
 
     white_highlight = pg.image.load("img/white_highlight.png")
     black_highlight = pg.image.load("img/black_highlight.png")
-
+    print('ei')
     return inactive_adversary_dice_button, active_adversary_dice_button, inactive_player_dice_button, \
            active_player_dice_button, white_wins, black_wins, dest_light_bottom, dest_light_upper, \
            house_lights_green, blank_player_dice, blank_adversary_dice, white_highlight, black_highlight
