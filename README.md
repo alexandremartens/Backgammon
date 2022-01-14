@@ -25,3 +25,6 @@ Select a highlighted destination by using:
 DEMO Video:
 https://user-images.githubusercontent.com/56159200/149554656-34d14bb0-b726-4741-a8a2-abaf91b89f95.mov
 
+PowerPoint presentation:
+https://docs.google.com/presentation/d/17iLU6sZd35CAuY8IM_XnmVYaVOxSq9SY/edit?usp=sharing&ouid=115549282468554263000&rtpof=true&sd=true
+
