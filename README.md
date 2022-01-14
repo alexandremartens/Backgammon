@@ -22,3 +22,6 @@ Select a highlighted destination by using:
 	- DOWN KEY: to select the lower dice play
 
 		
+DEMO Video:
+https://user-images.githubusercontent.com/56159200/149554656-34d14bb0-b726-4741-a8a2-abaf91b89f95.mov
+
