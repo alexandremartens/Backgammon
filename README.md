@@ -1,5 +1,5 @@
 # Backgammon_python
-This is for project 2.1 at Maastricht University where we're asked to create a Backgammon UI and AI. <br><br>
+In this project, we created a Backgammon UI and AI. <br><br>
 Prerequisite to launch Backgammon.py: pygame library.
 
 Use the following command from your IDE to install pygame: <br>
